@@ -7,36 +7,52 @@
 #
 # All rights reserved.
 
-# Core Bot Components
+# Core Bot Components Imports
 from VIPMUSIC.core.bot import VIPBot
 from VIPMUSIC.core.dir import dirr
 from VIPMUSIC.core.git import git
 from VIPMUSIC.core.userbot import Userbot
 from VIPMUSIC.misc import dbb, heroku, sudo
 
-# Logging
+# Logging Setup
 from .logging import LOGGER
 
-# Initialize directories, check git, database, heroku, and sudo users
-LOGGER(__name__).info("Initializing core components...") # Added log for clarity
-dirr()
-git()
-dbb()
-heroku()
-sudo()
+# --- Initializing Core Bot Setup ---
+LOGGER(__name__).info("Starting VIPMUSIC package core setup...")
 
-# Bot Client
+# Directories Setup
+dirr()
+LOGGER(__name__).info("Project directories ensured.")
+
+# Check for Git Updates
+git()
+LOGGER(__name__).info("Git updates checked.")
+
+# Initialize Memory Database
+dbb()
+LOGGER(__name__).info("Memory database initialized.")
+
+# Heroku APP Configuration
+heroku()
+LOGGER(__name__).info("Heroku configuration loaded (if applicable).")
+
+# Load Sudo Users from Database
+sudo()
+LOGGER(__name__).info("Sudo users loaded.")
+
+# --- Client Instantiation ---
+
+# Main Bot Client
 app = VIPBot()
-LOGGER(__name__).info("Main Bot Client Initialized.") # Added log
+LOGGER(__name__).info("Main Bot Client 'app' instantiated.")
 
 # Assistant Client
 userbot = Userbot()
-LOGGER(__name__).info("Assistant Client Initialized.") # Added log
+LOGGER(__name__).info("Assistant Client 'userbot' instantiated.")
 
-# Platform APIs
-# It's generally good practice to explicitly import what you need
-# rather than using a wildcard import if possible, for clarity.
-from .platforms import ( # Grouped for better readability
+# --- Music Platform API Setup ---
+# Explicitly importing individual APIs for clarity
+from .platforms import (
     AppleAPI,
     CarbonAPI,
     YouTubeAPI,
@@ -53,11 +69,9 @@ Apple = AppleAPI()
 Resso = RessoAPI()
 SoundCloud = SoundAPI()
 Telegram = TeleAPI()
+LOGGER(__name__).info("All music platform APIs initialized.")
 
-LOGGER(__name__).info("Music Platform APIs Initialized.") # Added log
-
-# Dictionary to hold help modules (populated later)
+# Dictionary to hold help modules (will be populated by main init.py)
 HELPABLE = {}
 
-# End of __init__.py setup
-LOGGER(__name__).info("VIPMUSIC package core setup complete.") # Added final log
+LOGGER(__name__).info("VIPMUSIC package core setup completed successfully.")
